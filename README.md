@@ -1,4 +1,7 @@
 # sia-wasm-web-example
+
+https://alrighttt.github.io/sia-wasm-web-example/
+
 A simple demonstration on how to utilize the WASM object outputted by Sia's walletd
 
 ## Build
@@ -21,4 +24,3 @@ if using goenv: `~/.goenv/versions/1.21.7/misc/wasm/wasm_exec.js`
 
 See available methods at:
 https://github.com/SiaFoundation/web/blob/3ffeded85d89b1df63782a05c64ad5e026b35700/walletd/wasm/wasm.go#L17
-
