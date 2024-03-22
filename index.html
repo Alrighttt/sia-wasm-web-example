@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WASM Wallet Example</title>
+    <script src="wasm_exec.js"></script>
+</head>
+<body>
+    <h1>WASM Wallet Example</h1>
+    <button id="generateSeed">Generate New Seed Phrase</button>
+    <p id="seedPhrase">Seed phrase will appear here...</p>
+
+    <script>
+        // This function loads the WASM module
+        async function initWasm() {
+            const go = new Go(); // Assuming Go's wasm_exec.js is included in your project
+            const wasmModuleUrl = 'bin.wasm'; // Update this path
+            const wasmResponse = await fetch(wasmModuleUrl);
+            const wasmBuffer = await wasmResponse.arrayBuffer();
+            const { instance } = await WebAssembly.instantiate(wasmBuffer, go.importObject);
+
+            go.run(instance);
+        }
+
+        // Utilize the newSeedPhrase function exposed from Go
+        function generateSeedPhrase() {
+            // Access the function via the global object set in Go
+            const newSeed = walletWasm.newSeedPhrase();
+            document.getElementById('seedPhrase').innerText = newSeed.phrase;
+        }
+
+        // Add event listener to button
+        document.getElementById('generateSeed').addEventListener('click', generateSeedPhrase);
+
+        // Initialize the WASM module when the page loads
+        window.onload = initWasm;
+    </script>
+</body>
+</html>
